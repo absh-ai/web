@@ -1,245 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Abhisek Dhakal | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <style>
+        :root {
+            --primary-book: #d4af37; /* Gold */
+            --dark-paper: #2c2c2c;
+            --light-paper: #f4f1ea;
+            --accent-red: #8b0000;
+            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', serif; }
 
-<style>
-:root{
-  --bg1:#0f2027;
-  --bg2:#203a43;
-  --bg3:#2c5364;
-  --accent:#00e0ff;
-  --text:#ffffff;
-  --card:#ffffff10;
-}
+        body {
+            background-color: var(--light-paper);
+            color: var(--dark-paper);
+            line-height: 1.6;
+        }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+        /* Navigation & Header */
+        header {
+            background: var(--dark-paper);
+            color: var(--primary-book);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--primary-book);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-body{
-  background: linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
-  color:var(--text);
-}
+        .logo { font-size: 1.8rem; font-weight: bold; letter-spacing: 2px; }
 
-/* HERO */
-.hero{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-  animation:fadeIn 2s ease;
-}
+        .role-switcher {
+            background: var(--primary-book);
+            color: var(--dark-paper);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-.hero h1{
-  font-size:3.2rem;
-  font-weight:700;
-  letter-spacing:2px;
-}
+        /* Main Layout */
+        .container { width: 90%; max-width: 1200px; margin: 2rem auto; }
 
-.typing{
-  margin-top:15px;
-  font-size:1.4rem;
-  color:var(--accent);
-  min-height:30px;
-}
+        /* Admin Form Section */
+        #admin-panel {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border-left: 10px solid var(--primary-book);
+            display: none; /* Controlled by JS */
+        }
 
-/* SECTIONS */
-section{
-  padding:80px 10%;
-}
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
 
-.section-title{
-  text-align:center;
-  font-size:2rem;
-  margin-bottom:50px;
-  position:relative;
-}
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
 
-.section-title::after{
-  content:"";
-  width:80px;
-  height:3px;
-  background:var(--accent);
-  position:absolute;
-  bottom:-10px;
-  left:50%;
-  transform:translateX(-50%);
-}
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
 
-/* SKILLS */
-.skills{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:25px;
-}
+        .btn-add { background: var(--primary-book); color: white; }
+        .btn-delete { background: var(--accent-red); color: white; padding: 5px 10px; font-size: 0.8rem; }
 
-.skill-card{
-  background:var(--card);
-  padding:25px;
-  border-radius:15px;
-  backdrop-filter:blur(8px);
-  text-align:center;
-  transition:0.3s;
-  box-shadow:0 8px 25px rgba(0,0,0,0.3);
-}
+        /* Book Grid Display */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
 
-.skill-card:hover{
-  transform:translateY(-8px);
-  background:var(--accent);
-  color:#000;
-}
+        /* Creative Book Design */
+        .book-card {
+            background: white;
+            padding: 20px;
+            border-radius: 5px 15px 15px 5px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            border-left: 12px solid var(--dark-paper);
+            transition: transform 0.3s;
+        }
 
-/* CONTACT */
-.contact-form{
-  max-width:600px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
+        .book-card:hover { transform: translateY(-5px); }
 
-.contact-form input,
-.contact-form textarea{
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  outline:none;
-}
+        .book-card::before {
+            content: '';
+            position: absolute;
+            left: 5px; top: 0; bottom: 0; width: 2px;
+            background: rgba(255,255,255,0.3);
+        }
 
-.contact-form button{
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  background:var(--accent);
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
-}
+        .book-title { font-size: 1.25rem; font-weight: bold; color: var(--accent-red); margin-bottom: 5px; }
+        .book-author { font-style: italic; color: #666; font-size: 0.9rem; }
+        .book-meta { margin-top: auto; padding-top: 15px; border-top: 1px dashed #ddd; font-size: 0.85rem; }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        .status-available { background: #e3f9e5; color: #1f7a33; }
+        .status-borrowed { background: #fee2e2; color: #b91c1c; }
 
-.contact-form button:hover{
-  transform:scale(1.05);
-}
+        .admin-actions { margin-top: 10px; display: flex; gap: 5px; }
 
-/* FOOTER */
-footer{
-  background:#00000050;
-  padding:30px 10%;
-  text-align:center;
-  margin-top:60px;
-  backdrop-filter:blur(6px);
-}
-
-footer p{
-  opacity:0.8;
-}
-
-/* ANIMATION */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(30px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .hero h1{font-size:2.3rem;}
-}
-</style>
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 10px; }
+            .form-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Abhisek Dhakal</h1>
-  <div class="typing"></div>
-</section>
+<header>
+    <div class="logo">Library</div>
+    <div>
+        <span id="current-role-text" style="margin-right: 10px;">View: <strong>User</strong></span>
+        <button class="role-switcher" onclick="toggleRole()">Switch to Admin</button>
+    </div>
+</header>
 
-<!-- SKILLS -->
-<section>
-  <h2 class="section-title">My Skills</h2>
-  <div class="skills">
-    <div class="skill-card">C Programming</div>
-    <div class="skill-card">HTML</div>
-    <div class="skill-card">CSS</div>
-    <div class="skill-card">JavaScript</div>
-    <div class="skill-card">PHP</div>
-    <div class="skill-card">Java</div>
-    <div class="skill-card">Python</div>
-    <div class="skill-card">Data Structures & Algorithms</div>
-  </div>
-</section>
+<div class="container">
+    <section id="admin-panel">
+        <h3>Add New Masterpiece</h3>
+        <div class="form-grid">
+            <input type="text" id="title" placeholder="Book Title">
+            <input type="text" id="author" placeholder="Author Name">
+            <select id="category">
+                <option value="Fiction">Fiction</option>
+                <option value="Non-Fiction">Non-Fiction</option>
+                <option value="Science">Science</option>
+                <option value="History">History</option>
+            </select>
+            <button class="btn btn-add" onclick="addBook()">Add to Library</button>
+        </div>
+    </section>
 
-<!-- CONTACT -->
-<section>
-  <h2 class="section-title">Leave a Message</h2>
-  <form class="contact-form" onsubmit="return validateForm()" method="post" action="backend.php">
-    <input type="text" id="name" name="name" placeholder="Your Name" required>
-    <input type="email" id="email" name="email" placeholder="Your Email" required>
-    <textarea id="message" rows="5" name="feedback" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Abhisek Dhakal | All Rights Reserved</p>
-</footer>
+    <h2 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-book); display: inline-block;">Library Collection</h2>
+    <div id="book-grid" class="book-grid">
+        </div>
+</div>
 
 <script>
-// Typing Animation
-const roles = ["AI Enthusiast","Web Developer","Python Programmer"];
-let roleIndex = 0, charIndex = 0, typingDiv = document.querySelector(".typing");
+    // Initial Data
+    let books = JSON.parse(localStorage.getItem('libraryBooks')) || [
+        { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", status: "Available" },
+        { id: 2, title: "A Brief History of Time", author: "Stephen Hawking", category: "Science", status: "Borrowed" }
+    ];
 
-function typeEffect(){
-  if(charIndex < roles[roleIndex].length){
-    typingDiv.textContent += roles[roleIndex].charAt(charIndex);
-    charIndex++;
-    setTimeout(typeEffect,80);
-  } else {
-    setTimeout(eraseEffect,1500);
-  }
-}
+    let isAdmin = false;
 
-function eraseEffect(){
-  if(charIndex > 0){
-    typingDiv.textContent = roles[roleIndex].substring(0,charIndex-1);
-    charIndex--;
-    setTimeout(eraseEffect,40);
-  } else {
-    roleIndex = (roleIndex+1) % roles.length;
-    setTimeout(typeEffect,300);
-  }
-}
+    // Toggle Admin/User View
+    function toggleRole() {
+        isAdmin = !isAdmin;
+        document.getElementById('admin-panel').style.display = isAdmin ? 'block' : 'none';
+        document.querySelector('.role-switcher').innerText = isAdmin ? 'Switch to User' : 'Switch to Admin';
+        document.getElementById('current-role-text').innerHTML = `View: <strong>${isAdmin ? 'Admin' : 'User'}</strong>`;
+        renderBooks();
+    }
 
-typeEffect();
+    // Add Book
+    function addBook() {
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const category = document.getElementById('category').value;
 
-// Form Validation
-function validateForm(){
-  let name=document.getElementById("name").value.trim();
-  let email=document.getElementById("email").value.trim();
-  let message=document.getElementById("message").value.trim();
+        if (!title || !author) {
+            alert("Please fill all fields");
+            return;
+        }
 
-  if(name.length<3){
-    alert("Name must be at least 3 characters.");
-    return false;
-  }
-  if(!email.includes("@")){
-    alert("Enter a valid email.");
-    return false;
-  }
-  if(message.length<5){
-    alert("Message too short.");
-    return false;
-  }
-  alert("Message sent successfully!");
-  return true;
-}
+        const newBook = {
+            id: Date.now(),
+            title: title,
+            author: author,
+            category: category,
+            status: "Available"
+        };
+
+        books.push(newBook);
+        saveAndRender();
+        
+        // Clear inputs
+        document.getElementById('title').value = '';
+        document.getElementById('author').value = '';
+    }
+
+    // Delete Book
+    function deleteBook(id) {
+        books = books.filter(book => book.id !== id);
+        saveAndRender();
+    }
+
+    // Toggle Availability (Edit feature)
+    function toggleStatus(id) {
+        if(!isAdmin) return;
+        books = books.map(book => {
+            if(book.id === id) {
+                book.status = book.status === "Available" ? "Borrowed" : "Available";
+            }
+            return book;
+        });
+        saveAndRender();
+    }
+
+    // Save to LocalStorage
+    function saveAndRender() {
+        localStorage.setItem('libraryBooks', JSON.stringify(books));
+        renderBooks();
+    }
+
+    // Render Books to UI
+    function renderBooks() {
+        const grid = document.getElementById('book-grid');
+        grid.innerHTML = '';
+
+        books.forEach(book => {
+            const statusClass = book.status === "Available" ? "status-available" : "status-borrowed";
+            
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            card.innerHTML = `
+                <div class="book-title">${book.title}</div>
+                <div class="book-author">by ${book.author}</div>
+                <div class="book-meta">
+                    <div>Genre: ${book.category}</div>
+                    <span class="badge ${statusClass}">${book.status}</span>
+                </div>
+                ${isAdmin ? `
+                    <div class="admin-actions">
+                        <button class="btn btn-delete" onclick="deleteBook(${book.id})">Delete</button>
+                        <button class="btn" style="background:#ddd; font-size:0.8rem;" onclick="toggleStatus(${book.id})">Toggle Status</button>
+                    </div>
+                ` : ''}
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Initial Load
+    renderBooks();
 </script>
 
 </body>
