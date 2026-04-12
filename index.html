@@ -1,275 +1,418 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library</title>
+    <title>Spandan Poudel - Ultimate Desi Drinker & Smoker</title>
     <style>
-        :root {
-            --primary-book: #d4af37; /* Gold */
-            --dark-paper: #2c2c2c;
-            --light-paper: #f4f1ea;
-            --accent-red: #8b0000;
-            --shadow: 0 4px 15px rgba(0,0,0,0.2);
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', serif; }
-
+        
         body {
-            background-color: var(--light-paper);
-            color: var(--dark-paper);
-            line-height: 1.6;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(-45deg, #0f0f23, #1a0033, #330066, #000);
+            background-size: 400% 400%;
+            animation: nebula 15s ease infinite;
+            color: #00ff88;
+            overflow-x: hidden;
+            position: relative;
         }
-
-        /* Navigation & Header */
-        header {
-            background: var(--dark-paper);
-            color: var(--primary-book);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--primary-book);
-            position: sticky;
+        
+        @keyframes nebula {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .stars {
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
-
-        .logo { font-size: 1.8rem; font-weight: bold; letter-spacing: 2px; }
-
-        .role-switcher {
-            background: var(--primary-book);
-            color: var(--dark-paper);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        header {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(0,0,0,0.8);
+            border-bottom: 5px solid #ff00ff;
+            box-shadow: 0 0 50px #ff00ff;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 5em;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(45deg, #00ff88, #ff00ff, #ffff00, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255,255,255,0.5);
+        }
+        
+        @keyframes logoGlow {
+            from { filter: hue-rotate(0deg) drop-shadow(0 0 20px #00ff88); }
+            to { filter: hue-rotate(360deg) drop-shadow(0 0 40px #ff00ff); }
+        }
+        
+        .subtitle {
+            font-size: 1.8em;
+            margin-top: 15px;
+            color: #ffff00;
+            text-shadow: 0 0 20px #ffff00;
+        }
+        
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .item-card {
+            background: rgba(0,0,0,0.9);
+            border: 2px solid #00ff88;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0,255,136,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .item-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0,255,136,0.6);
+            border-color: #ff00ff;
+        }
+        
+        .item-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .churot-glow {
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ff00;
             font-weight: bold;
-            transition: 0.3s;
         }
-
-        /* Main Layout */
-        .container { width: 90%; max-width: 1200px; margin: 2rem auto; }
-
-        /* Admin Form Section */
-        #admin-panel {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-            border-left: 10px solid var(--primary-book);
-            display: none; /* Controlled by JS */
+        
+        .raksi-glow {
+            color: #ff6b35;
+            text-shadow: 0 0 20px #ff6b35;
         }
-
-        .form-grid {
+        
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 25px;
+            margin: 60px 0;
         }
-
-        input, select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .btn-add { background: var(--primary-book); color: white; }
-        .btn-delete { background: var(--accent-red); color: white; padding: 5px 10px; font-size: 0.8rem; }
-
-        /* Book Grid Display */
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        /* Creative Book Design */
-        .book-card {
-            background: white;
-            padding: 20px;
-            border-radius: 5px 15px 15px 5px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
-            border-left: 12px solid var(--dark-paper);
-            transition: transform 0.3s;
-        }
-
-        .book-card:hover { transform: translateY(-5px); }
-
-        .book-card::before {
-            content: '';
-            position: absolute;
-            left: 5px; top: 0; bottom: 0; width: 2px;
-            background: rgba(255,255,255,0.3);
-        }
-
-        .book-title { font-size: 1.25rem; font-weight: bold; color: var(--accent-red); margin-bottom: 5px; }
-        .book-author { font-style: italic; color: #666; font-size: 0.9rem; }
-        .book-meta { margin-top: auto; padding-top: 15px; border-top: 1px dashed #ddd; font-size: 0.85rem; }
         
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            margin-top: 5px;
+        .stat-card {
+            background: linear-gradient(145deg, rgba(0,255,136,0.2), rgba(255,0,255,0.2));
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
         }
-        .status-available { background: #e3f9e5; color: #1f7a33; }
-        .status-borrowed { background: #fee2e2; color: #b91c1c; }
-
-        .admin-actions { margin-top: 10px; display: flex; gap: 5px; }
-
-        @media (max-width: 600px) {
-            header { flex-direction: column; gap: 10px; }
-            .form-grid { grid-template-columns: 1fr; }
+        
+        .stat-card:hover {
+            border-color: #ffff00;
+            box-shadow: 0 0 40px #ffff00;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 900;
+            color: #ffff00;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #ffff00;
+        }
+        
+        .counter {
+            animation: countUp 2s ease-out;
+        }
+        
+        @keyframes countUp {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: particleFloat 6s infinite linear;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0,0,0,0.95);
+            border-top: 3px solid #ff00ff;
+            margin-top: 80px;
+            box-shadow: 0 -10px 40px rgba(255,0,255,0.3);
+        }
+        
+        .neon-text {
+            font-size: 1.2em;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
         }
     </style>
 </head>
 <body>
+    <!-- Starfield Background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-<header>
-    <div class="logo">Library</div>
-    <div>
-        <span id="current-role-text" style="margin-right: 10px;">View: <strong>User</strong></span>
-        <button class="role-switcher" onclick="toggleRole()">Switch to Admin</button>
+    <div class="container">
+        <header>
+            <h1 class="logo">🔥 SPANDAN POUDEL 🔥</h1>
+            <p class="subtitle">Desi Drinker & Smoker | Khukuri Master | Raksi Legend</p>
+        </header>
+
+        <section class="arsenal-grid">
+            <div class="item-card">
+                <div class="item-icon">🔪</div>
+                <h3>Khukuri Churot</h3>
+                <p class="churot-glow">Nepal's sharpest smoke. Cuts through the haze like a Gurkha blade.</p>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-icon">⚡</div>
+                <h3>Bijuli Churot</h3>
+                <p class="churot-glow">Electric glow in the dark. Lights up Spandan's nights.</p>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-icon">⛰️</div>
+                <h3>Shikher Ice</h3>
+                <p class="churot-glow">Himalayan chill in every puff. Peak performance smoking.</p>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-icon">🌾</div>
+                <h3>Local Raksi</h3>
+                <p class="raksi-glow">Village firewater. Burns going down, warms the soul.</p>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-icon">🍺</div>
+                <h3>Desi Beer</h3>
+                <p class="raksi-glow">Gorkha 900ml sessions. Spandan's daily ritual.</p>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-icon">🥃</div>
+                <h3>Khukuri Rum</h3>
+                <p class="raksi-glow">Blade-shaped bottle, warrior's spirit in every sip.</p>
+            </div>
+        </section>
+
+        <section style="text-align: center; margin: 60px 0;">
+            <h2 style="font-size: 3em; margin-bottom: 40px; color: #ff00ff; text-shadow: 0 0 30px #ff00ff;">📊 SPANDAN'S BATTLE STATS</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number counter" data-target="2500">0</div>
+                    <div>Khukuri Churots</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number counter" data-target="1800">0</div>
+                    <div>Bijuli Churots</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number counter" data-target="1200">0</div>
+                    <div>Shikher Ice Packs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number counter" data-target="5000">0</div>
+                    <div>Raksi Liters</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number counter" data-target="15000">0</div>
+                    <div>Desi Beers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number counter" data-target="800">0</div>
+                    <div>Khukuri Rum Bottles</div>
+                </div>
+            </div>
+        </section>
     </div>
-</header>
 
-<div class="container">
-    <section id="admin-panel">
-        <h3>Add New Masterpiece</h3>
-        <div class="form-grid">
-            <input type="text" id="title" placeholder="Book Title">
-            <input type="text" id="author" placeholder="Author Name">
-            <select id="category">
-                <option value="Fiction">Fiction</option>
-                <option value="Non-Fiction">Non-Fiction</option>
-                <option value="Science">Science</option>
-                <option value="History">History</option>
-            </select>
-            <button class="btn btn-add" onclick="addBook()">Add to Library</button>
-        </div>
-    </section>
+    <footer>
+        <p class="neon-text">© 2024 Spandan Poudel Empire | जितेरै बस्छौ | No Surrender 🚬🔪🥃</p>
+    </footer>
 
-    <h2 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-book); display: inline-block;">Library Collection</h2>
-    <div id="book-grid" class="book-grid">
-        </div>
-</div>
-
-<script>
-    // Initial Data
-    let books = JSON.parse(localStorage.getItem('libraryBooks')) || [
-        { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", status: "Available" },
-        { id: 2, title: "A Brief History of Time", author: "Stephen Hawking", category: "Science", status: "Borrowed" }
-    ];
-
-    let isAdmin = false;
-
-    // Toggle Admin/User View
-    function toggleRole() {
-        isAdmin = !isAdmin;
-        document.getElementById('admin-panel').style.display = isAdmin ? 'block' : 'none';
-        document.querySelector('.role-switcher').innerText = isAdmin ? 'Switch to User' : 'Switch to Admin';
-        document.getElementById('current-role-text').innerHTML = `View: <strong>${isAdmin ? 'Admin' : 'User'}</strong>`;
-        renderBooks();
-    }
-
-    // Add Book
-    function addBook() {
-        const title = document.getElementById('title').value;
-        const author = document.getElementById('author').value;
-        const category = document.getElementById('category').value;
-
-        if (!title || !author) {
-            alert("Please fill all fields");
-            return;
+    <script>
+        // Starfield
+        function createStars() {
+            const stars = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                stars.appendChild(star);
+            }
         }
 
-        const newBook = {
-            id: Date.now(),
-            title: title,
-            author: author,
-            category: category,
-            status: "Available"
-        };
+        // Floating Particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particles.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 7000);
+            }, 300);
+        }
 
-        books.push(newBook);
-        saveAndRender();
-        
-        // Clear inputs
-        document.getElementById('title').value = '';
-        document.getElementById('author').value = '';
-    }
+        // Animated Counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                updateCounter();
+            });
+        }
 
-    // Delete Book
-    function deleteBook(id) {
-        books = books.filter(book => book.id !== id);
-        saveAndRender();
-    }
-
-    // Toggle Availability (Edit feature)
-    function toggleStatus(id) {
-        if(!isAdmin) return;
-        books = books.map(book => {
-            if(book.id === id) {
-                book.status = book.status === "Available" ? "Borrowed" : "Available";
+        // Mouse Trail Smoke
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.7) {
+                const smoke = document.createElement('div');
+                smoke.style.cssText = `
+                    position: fixed;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    font-size: 20px;
+                    pointer-events: none;
+                    z-index: 1000;
+                    color: #00ff88;
+                    text-shadow: 0 0 10px #00ff88;
+                    animation: smokeTrail 2s forwards;
+                `;
+                smoke.innerHTML = ['💨', '🚬', '🌫️'][Math.floor(Math.random() * 3)];
+                document.body.appendChild(smoke);
+                
+                setTimeout(() => smoke.remove(), 2000);
             }
-            return book;
         });
-        saveAndRender();
-    }
 
-    // Save to LocalStorage
-    function saveAndRender() {
-        localStorage.setItem('libraryBooks', JSON.stringify(books));
-        renderBooks();
-    }
+        // Add smoke trail animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes smokeTrail {
+                0% { transform: translateY(0) scale(1); opacity: 1; }
+                100% { transform: translateY(-50px) scale(2) rotate(180deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
-    // Render Books to UI
-    function renderBooks() {
-        const grid = document.getElementById('book-grid');
-        grid.innerHTML = '';
-
-        books.forEach(book => {
-            const statusClass = book.status === "Available" ? "status-available" : "status-borrowed";
-            
-            const card = document.createElement('div');
-            card.className = 'book-card';
-            card.innerHTML = `
-                <div class="book-title">${book.title}</div>
-                <div class="book-author">by ${book.author}</div>
-                <div class="book-meta">
-                    <div>Genre: ${book.category}</div>
-                    <span class="badge ${statusClass}">${book.status}</span>
-                </div>
-                ${isAdmin ? `
-                    <div class="admin-actions">
-                        <button class="btn btn-delete" onclick="deleteBook(${book.id})">Delete</button>
-                        <button class="btn" style="background:#ddd; font-size:0.8rem;" onclick="toggleStatus(${book.id})">Toggle Status</button>
-                    </div>
-                ` : ''}
-            `;
-            grid.appendChild(card);
+        // Initialize
+        window.addEventListener('load', () => {
+            createStars();
+            createParticles();
+            setTimeout(animateCounters, 1000);
         });
-    }
 
-    // Initial Load
-    renderBooks();
-</script>
-
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const stars = document.getElementById('stars');
+            stars.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
 </body>
 </html>
